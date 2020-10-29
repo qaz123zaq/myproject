@@ -1,0 +1,84 @@
+```{r}
+x<-4
+if(x<0){
+ print("Negative number")
+ } else {
+ print("zero")
+}
+for(i in 1:10){
+  print(i)
+}
+```
+
+
+```{r}
+metasample<-rnorm(N,5,2)
+rodno<-as.integer(runif(N)*N)+1
+smp<-metasample[rodno]
+hist(metasample)
+lx<-seq(min(metasample),max(metasample),length=100)
+ly<-dnorm(lx,mean(metasample),sd(metasample))
+
+sy<-ly*N*diff(lx)[1]
+lines(lx,ly)
+
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+```{r}
+N<-500
+metasample<-rnorm(N,5,2)
+bmu<-numeric(1000)
+for(i in 1:1000){
+  rndno<-as.integer(runif(N)*N)+1
+  smp<-metasample[rndno]
+  bmu[i]<-mean(smp)
+  
+}
+p<-density(bmu)
+plot(p)
+
+
+
+```
+
+ 
+```{r}
+N<-500
+metasample<-rnorm(N,5,2)
+bmu<-numeric(1000)
+for(i in 1:1000){
+  rndno<-as.integer(runif(N)*N)+1
+  smp<-metasample[rndno]
+  bmu[i]<-mean(smp)
+  
+}
+p<-density(bmu)
+plot(p)
+qq<-quantile(bmu)
+rug(qq,col="red")
+qq
+```
+
+
+
+
+
+
+
+
+
+
