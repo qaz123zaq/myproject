@@ -1,0 +1,106 @@
+---
+title: '1126'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Q1 下面三個向量變成組成list
+x1<-runif(3)
+x2<-runif(3)
+x3<-runif(3)
+x<-list(x1,x2,x3)
+Tength(x) # 3個 
+xx<-c(x1,x2,x3)
+length(xx) # 9個
+
+Q2 計算裡面元素大於0.5
+```{r}
+xx<-function(x){
+  if(is.vector(x））{
+    return(x[x>0.5])
+  }
+}
+
+
+```
+
+
+Q2 計算裡面元素大於0.5
+```{r}
+xx<-function(x){
+  return(length(x[x>0.5]))
+  }
+xx(runif(10))
+
+
+```
+
+
+```{r}
+
+x1<-list(c("a","b"),c("c","d"))
+x<-x1[[1]]
+#typeof(x)
+for(item in x){
+  print(item) 
+}
+
+print("------")
+
+x<-x1[1]
+#typeof(x)
+for (item in x) {
+  print(item)
+  }
+
+
+
+
+
+
+
+
+```
+
+既然拿到list，那要拿到真正的內容必須[[]]
+
+寫一個函數，確認目前的子目錄中，有沒有一個檔案叫做"xx.txt"
+
+myfl<-function(afile){ 
+...
+}
+
+```{r}
+myf1<-function (afile){
+file<-dir()
+rst<-length(file[file==afile])  
+return ( rst>0)
+}
+myf1("mm.R")
+```
+
+
+
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
