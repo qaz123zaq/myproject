@@ -1,0 +1,98 @@
+---
+title: "Untitled"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+## practive
+
+寫一個函數，到我們要的資料集是不是已經內建立 例如，iris是不是內建資料
+
+```{r}
+dn<-data()
+str(dn)
+
+```
+
+```{r}
+attributes(dn)
+```
+
+```{r}
+head(dn$results)
+```
+
+```{r}
+dimnames(dn$results)
+class(dn$results)
+dsname<-dn$results[,"Item"]
+
+```
+
+
+
+
+
+## not in function(prior function)
+
+
+
+```{r}
+uname<- "BOD"
+dsname<-dn$results
+length(dsname[dsname==uname])
+
+```
+```{r}
+isDsExists<-function(given){
+  dn<-data()
+  dsname<-dn$results[,"Item"]
+  rst<-length(dsname[dsname==given])
+if(rst!=0){
+  return(T)
+}
+  else{
+     return(F)
+ 
+  }
+}
+isDsExists("xxx")
+```
+
+
+
+
+
+```{r}  
+#下方先安裝> install.packages("DT")#
+library(DT)
+datatable(cars)
+
+
+```
+
+
+## datatable
+```{r}
+library(DT)
+
+dn<-data()
+dsname<-dn$results[,"Item"]
+df<-data.frame(dsname)
+datatable(df)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
