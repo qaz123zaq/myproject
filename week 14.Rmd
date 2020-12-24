@@ -1,0 +1,23 @@
+---
+title: "Untitled"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(DT)
+ms<-installed.packages()
+#view(ms)#
+fm<-data.frame(ms)
+fm2<-fm[,1:3]
+datatable(fm2,rownames = F)
+colnames(fm2)<-C("套件","路徑","版本")
+
+datatable(fm2,rownames=F)
+
+
+```
+
