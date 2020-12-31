@@ -1,0 +1,61 @@
+---
+ititle: "Untitled"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+```{r}
+head(iris)
+levels(iris$Species)
+iris.lab = rep(c("1","2","3"),rep(50,3))
+
+par(mfrow=c(1,2))
+plot(iris[,1],iris[,3],type="n")      
+text(iris[,1],iris[,3],cex=0.6)       
+plot(iris[,1],iris[,3],type="n") 
+text(iris[,1],iris[,3],iris.lab,cex=0.7) 
+```
+```{r}
+par(mfrow=c(1,1)) 
+pairs(iris)
+```
+
+```{r}
+par(mfrow=c(1,1)) 
+pairs(iris[,1:4])
+```
+
+```{r}
+pairs(iris[1:4],pch=21,bg=iris.lab)
+
+```
+
+```{r}
+pairs(iris[1:4],pch=21, bg=c("red", "green3", "blue")[unclass(iris$Species)])
+
+```
+```{r}
+qnorm(seq(0.01,0.99,0.01))
+quantile(rnorm(200),probs = seq(0.01,0.99,0.01)) 
+```
+```{r}
+my_data <- ToothGrowth
+qqnorm(my_data$len, pch = 1, frame = FALSE)
+qqline(my_data$len, col = "steelblue", lwd = 2)
+```
+
+```{r}
+rr<-runif(1000)
+MS=read.csv("mathstat.csv",header=T)
+qqplot(MS$maths,rr)
+
+
+
+
+```
+
