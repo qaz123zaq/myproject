@@ -1,0 +1,185 @@
+---
+title: "week17"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+pnorm(80,100,15)
+
+```
+```{r}
+pnorm(120,100,15)
+```
+
+```{r}
+pnorm(120,100,15)-pnorm(80,100,15)
+```
+```{r}
+u.test<-function(x,mu,thegma,alternative="twoside")
+{  Se=thegma/sqrt(length(x))
+   u <-(mean(x)-mu)/Se
+   p <-pnorm(u)
+   if(alternative=="twoside") p<-2*(1-pnorm(abs(u)))
+   else if (alternative=="less") p<-pnorm(u)
+   else p <- 1-pnorm(u)
+   list(u=u, p=p)
+}
+```
+
+```{r}
+x=c(502,496,510,508,506,498,512,497,515,503,510,506)
+t.test(x,mu=500,alternative ="greater") 
+```
+
+```{r}
+var.test1<-function(x, sigma2){
+  n<-length(x)
+  S2=var(x)
+  df=n-1
+  chi2<-df*S2/sigma2;
+  P<-pchisq(chi2,df)
+  data.frame(var=S2, df=df, chisq2=chi2, P_value=P)
+}
+var.test1(x,400)
+```
+```{r}
+ks.test(rnorm(100, mean = 5, sd = 3),"pnorm",mean=5,sd=3)#來自常態
+#> 
+#> 	One-sample Kolmogorov-Smirnov test
+#> 
+#> data:  rnorm(100, mean = 5, sd = 3)
+#> D = 0.066346, p-value = 0.7709
+#> alternative hypothesis: two-sided
+ks.test(rnorm(100, mean = 5, sd = 3),rnorm(100, mean = 5, sd = 3)) #來自同一母體
+#> 
+#> 	Two-sample Kolmogorov-Smirnov test
+#> 
+#> data:  rnorm(100, mean = 5, sd = 3) and rnorm(100, mean = 5, sd = 3)
+#> D = 0.12, p-value = 0.4676
+#> alternative hypothesis: two-sided
+```
+
+
+```{r}
+heads <- rbinom(1, size = 100, prob = .5)
+prop.test(heads, 100)          # continuity correction TRUE by default
+#> 
+#> 	1-sample proportions test with continuity correction
+#> 
+#> data:  heads out of 100, null probability 0.5
+#> X-squared = 0.81, df = 1, p-value = 0.3681
+#> alternative hypothesis: true p is not equal to 0.5
+#> 95 percent confidence interval:
+#>  0.4475426 0.6485719
+#> sample estimates:
+#>    p 
+#> 0.55
+prop.test(heads, 100, correct = FALSE)
+#> 
+#> 	1-sample proportions test without continuity correction
+#> 
+#> data:  heads out of 100, null probability 0.5
+#> X-squared = 1, df = 1, p-value = 0.3173
+#> alternative hypothesis: true p is not equal to 0.5
+#> 95 percent confidence interval:
+#>  0.4524460 0.6438546
+#> sample estimates:
+#>    p 
+#> 0.55
+
+## Data from Fleiss (1981), p. 139.
+## H0: The null hypothesis is that the four populations from which
+##     the patients were drawn have the same true proportion of smokers.
+## A:  The alternative is that this proportion is different in at
+##     least one of the populations.
+
+smokers  <- c( 83, 90, 129, 70 )
+patients <- c( 86, 93, 136, 82 )
+prop.test(smokers, patients)
+#> 
+#> 	4-sample test for equality of proportions without continuity
+#> 	correction
+#> 
+#> data:  smokers out of patients
+#> X-squared = 12.6, df = 3, p-value = 0.005585
+#> alternative hypothesis: two.sided
+#> sample estimates:
+#>    prop 1    prop 2    prop 3    prop 4 
+#> 0.9651163 0.9677419 0.9485294 0.8536585
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+```{r}
+
+curve(dchisq(x, df = 10), from = 0, to = 40)
+```
+
+```{r}
+die.fair = sample(1:6,100,p=c(1,1,1,1,1,1)/6,rep=T)    # 均匀骰子
+die.bias = sample(1:6,100,p=c(.5,.5,1,1,1,2)/6,rep=T)  # 不均匀骰子
+res.fair = table(die.fair)
+res.bias = table(die.bias)
+count = rbind(res.fair,res.bias)
+chisq.test(count)
+```
+
+```{r}
+smokers  <- c( 83, 90, 129, 70 )
+patients <- c( 86, 93, 136, 82 )
+chisq.test(rbind(smokers, patients))
+```
+
+
+
+```{r}
+#create density curve
+curve(dchisq(x, df = 10), from = 0, to = 40,
+main = 'Chi-Square Distribution (df = 10)',
+ylab = 'Density',
+lwd = 2)
+
+#create vector of x values
+x_vector <- seq(10, 40)
+
+#create vector of chi-square density values
+p_vector <- dchisq(x_vector, df = 10)
+
+#fill in portion of the density plot from 0 to 40
+polygon(x_vector, p_vector,
+        col = adjustcolor('red', alpha=0.3), border = NA)
+```
+
+```{r}
+#create density curve
+curve(dchisq(x, df = 10), from = 0, to = 40,
+main = 'Chi-Square Distribution (df = 10)',
+ylab = 'Density',
+lwd = 2)
+
+#create vector of x values
+x_vector <- seq(10, 40)
+
+#create vector of chi-square density values
+p_vector <- dchisq(x_vector, df = 10)
+
+#fill in portion of the density plot from 0 to 40
+polygon(c(x_vector, rev(x_vector)), c(p_vector, rep(0, length(p_vector))),
+        col = adjustcolor('red', alpha=0.3), border = NA)
+```
+
